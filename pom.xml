@@ -10,6 +10,7 @@
 		<module>stock-query-service</module>
 		<module>api-gateway</module>
 		<module>service-registry</module>
+		<module>common-utils</module>
 	</modules>
 	<parent>
 		<groupId>org.springframework.boot</groupId>
