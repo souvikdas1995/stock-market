@@ -1,10 +1,10 @@
-package bean;
+package query.service.bean;
 
 import javax.persistence.*;
 import java.util.Calendar;
 
 @Entity
-@Table(name="STOCKQUERY")
+@Table(name="stockquery")
 public class StockQuery {
 
     @Id
@@ -22,6 +22,6 @@ public class StockQuery {
     private Calendar endDate;
 
     @ManyToOne
-    @JoinColumn(name="companyCode", nullable=false)
+    @JoinColumn(name="companycode", nullable=false)
     private CompanyQuery companyQuery;
 }
