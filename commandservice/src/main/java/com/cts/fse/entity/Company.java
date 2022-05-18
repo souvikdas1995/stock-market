@@ -10,40 +10,32 @@ import lombok.ToString;
 
 import java.util.List;
 
-/*@Getter
+
+@Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@ToString*/
+@ToString
 @Entity
 public class Company {
-    @Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
-    private int companyCode;
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private int companyCode;
 
-    private String companyName;
+	private String companyName;
 
-    private String description;
+	private String description;
 
-    private String ceo;
+	private String ceo;
 
-    private long turnover;
+	private long turnover;
 
-    private String website;
+	private String website;
 
-    private String exchange;
+	private String exchange;
 
-    @OneToMany(
-            cascade = CascadeType.ALL,
-            mappedBy = "companyQuery",
-            orphanRemoval = true,
-            fetch = FetchType.LAZY
-    )
-    private List<Stock> stocks;
-
-
-
-
-
+	/*
+	 * @OneToMany(cascade = CascadeType.ALL, mappedBy = "companyQuery",
+	 * orphanRemoval = true, fetch = FetchType.LAZY) private List<Stock> stocks;
+	 */
 }
-
