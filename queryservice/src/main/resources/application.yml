@@ -10,4 +10,6 @@ spring:
     username: root
     password: pass@word1
     driver-class-name: com.mysql.cj.jdbc.Driver
+server:
+  port : 8081
 

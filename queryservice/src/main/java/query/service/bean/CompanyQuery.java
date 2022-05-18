@@ -4,11 +4,9 @@ import javax.persistence.*;
 import java.util.List;
 
 @Entity
-@Table(name="companyquery")
 public class CompanyQuery {
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
-    @Column(name = "companycode")
     private int companyCode;
 
     private String companyName;
@@ -23,7 +21,12 @@ public class CompanyQuery {
 
     private String exchange;
 
-    @OneToMany(mappedBy="companyquery", cascade = CascadeType.ALL)
+    @OneToMany(
+            cascade = CascadeType.ALL,
+            mappedBy = "companyQuery",
+            orphanRemoval = true,
+            fetch = FetchType.LAZY
+    )
     private List<StockQuery> stocks;
 
 
