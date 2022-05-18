@@ -1,11 +1,11 @@
 package query.service.repository;
 
-import query.service.bean.CompanyQuery;
+import query.service.bean.Company;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface CompanyQueryRepository extends CrudRepository<CompanyQuery, Integer> {
+public interface CompanyRepository extends CrudRepository<Company, Integer> {
 
     }
 

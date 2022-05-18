@@ -1,6 +1,6 @@
 package query.service.controller;
 
-import query.service.bean.CompanyQuery;
+import query.service.bean.Company;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import query.service.service.CompanyQueryService;
@@ -15,13 +15,13 @@ public class CompanyQueryController {
     private CompanyQueryService companyQueryService;
 
     @GetMapping(path="/getall")
-    public @ResponseBody List<CompanyQuery> getAllcompanyDetails() {
+    public @ResponseBody List<Company> getAllcompanyDetails() {
         return companyQueryService.getAllCompanies();
     }
 
     @GetMapping(path="/info/{id}")
     public @ResponseBody
-    Optional<CompanyQuery> getSingleCompanyDetails(@PathVariable int companyCode) {
+    Optional<Company> getSingleCompanyDetails(@PathVariable int companyCode) {
         return companyQueryService.getSingleCompanybyCompanyId(companyCode);
     }
 
