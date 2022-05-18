@@ -1,10 +1,9 @@
-package bean;
+package query.service.bean;
 
 import javax.persistence.*;
 import java.util.List;
 
 @Entity
-@Table(name="COMPANYQUERY")
 public class CompanyQuery {
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
@@ -22,8 +21,15 @@ public class CompanyQuery {
 
     private String exchange;
 
-    @OneToMany(mappedBy="companyquery", cascade = CascadeType.ALL)
+    @OneToMany(
+            cascade = CascadeType.ALL,
+            mappedBy = "companyQuery",
+            orphanRemoval = true,
+            fetch = FetchType.LAZY
+    )
     private List<StockQuery> stocks;
+
+
 
 
 

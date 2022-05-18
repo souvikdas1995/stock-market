@@ -1,10 +1,9 @@
-package bean;
+package query.service.bean;
 
 import javax.persistence.*;
 import java.util.Calendar;
 
 @Entity
-@Table(name="STOCKQUERY")
 public class StockQuery {
 
     @Id
@@ -21,7 +20,7 @@ public class StockQuery {
 
     private Calendar endDate;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="companyCode", nullable=false)
     private CompanyQuery companyQuery;
 }
