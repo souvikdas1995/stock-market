@@ -1,4 +1,4 @@
-package query.service.bean;
+package com.cts.fse.entity;
 
 import javax.persistence.*;
 
@@ -16,7 +16,7 @@ import java.util.List;
 @AllArgsConstructor
 @ToString*/
 @Entity
-public class CompanyQuery {
+public class Company {
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
     private int companyCode;
@@ -39,7 +39,7 @@ public class CompanyQuery {
             orphanRemoval = true,
             fetch = FetchType.LAZY
     )
-    private List<StockQuery> stocks;
+    private List<Stock> stocks;
 
 
 
