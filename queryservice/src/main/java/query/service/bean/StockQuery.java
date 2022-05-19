@@ -1,13 +1,11 @@
 package query.service.bean;
 
-import javax.persistence.*;
-import java.util.Calendar;
+import lombok.Data;
 
-@Entity
+import java.util.Calendar;
+@Data
 public class StockQuery {
 
-    @Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
     private int stockCode;
 
     private String stockName;
@@ -20,7 +18,5 @@ public class StockQuery {
 
     private Calendar endDate;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name="companyCode", nullable=false)
     private CompanyQuery companyQuery;
 }

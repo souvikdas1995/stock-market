@@ -1,12 +1,10 @@
 package query.service.bean;
 
-import javax.persistence.*;
-import java.util.List;
+import lombok.Data;
 
-@Entity
+import java.util.List;
+@Data
 public class CompanyQuery {
-    @Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
     private int companyCode;
 
     private String companyName;
@@ -21,12 +19,6 @@ public class CompanyQuery {
 
     private String exchange;
 
-    @OneToMany(
-            cascade = CascadeType.ALL,
-            mappedBy = "companyQuery",
-            orphanRemoval = true,
-            fetch = FetchType.LAZY
-    )
     private List<StockQuery> stocks;
 
 

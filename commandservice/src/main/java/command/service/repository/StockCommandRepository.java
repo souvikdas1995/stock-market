@@ -1,8 +1,9 @@
-package query.service.repository;
+package command.service.repository;
 
 import command.service.bean.StockCreation;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
+
 @Repository
-public interface StockQueryRepository extends CrudRepository<StockCreation, Integer>{
+public interface StockCommandRepository extends CrudRepository<StockCreation, Integer> {
 }

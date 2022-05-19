@@ -4,9 +4,9 @@
 	<modelVersion>4.0.0</modelVersion>
 	<packaging>pom</packaging>
 	<modules>
-		<module>api-gateway</module>
-		<module>service-registry</module>
-		<module>common-utils</module>
+		<module>apigateway</module>
+		<module>serviceregistry</module>
+		<module>commonutils</module>
 		<module>commandservice</module>
 		<module>queryservice</module>
 	</modules>
@@ -33,6 +33,12 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+			<version>1.18.24</version>
+			<scope>provided</scope>
 		</dependency>
 	</dependencies>
 

@@ -1,6 +1,6 @@
 package query.service.service;
 
-import query.service.bean.CompanyQuery;
+import command.service.bean.CompanyCreation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import query.service.repository.CompanyQueryRepository;
@@ -15,14 +15,14 @@ public class CompanyQueryService {
     @Autowired
     CompanyQueryRepository companyQueryRepository;
 
-    public List<CompanyQuery> getAllCompanies()
+    public List<CompanyCreation> getAllCompanies()
     {
-        List<CompanyQuery> companies = new ArrayList<CompanyQuery>();
+        List<CompanyCreation> companies = new ArrayList<CompanyCreation>();
         companyQueryRepository.findAll().forEach(company -> companies.add(company));
         return companies;
     }
 
-    public Optional<CompanyQuery> getSingleCompanybyCompanyId(int companyCode){
+    public Optional<CompanyCreation> getSingleCompanybyCompanyId(int companyCode){
         return companyQueryRepository.findById(companyCode);
     }
 }
