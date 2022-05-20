@@ -22,7 +22,9 @@ public class CompanyQueryService {
         return companies;
     }
 
-    public Optional<CompanyCreation> getSingleCompanybyCompanyId(int companyCode){
-        return companyQueryRepository.findById(companyCode);
+    public CompanyCreation getSingleCompanybyCompanyId(int companyCode) throws  Exception{
+        return companyQueryRepository
+                .findById(companyCode)
+                .orElseThrow(()-> new Exception("company not found with this id "+companyCode));
     }
 }

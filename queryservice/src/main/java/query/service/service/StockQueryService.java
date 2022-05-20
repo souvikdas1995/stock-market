@@ -24,7 +24,9 @@ public class StockQueryService {
         return stocks;
     }
 
-    public Optional<StockCreation> getSingleStockbyId(int stockId){
-        return stockQueryRepository.findById(stockId);
+    public StockCreation getSingleStockbyId(int stockId) throws Exception{
+        return stockQueryRepository
+                .findById(stockId)
+                .orElseThrow(()-> new Exception("stock not found with this id "+stockId));
     }
 }

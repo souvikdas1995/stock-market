@@ -3,6 +3,8 @@ package query.service.controller;
 import command.service.bean.CompanyCreation;
 import command.service.bean.StockCreation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import query.service.service.CompanyQueryService;
 import query.service.service.StockQueryService;
@@ -18,14 +20,15 @@ public class StockQueryController {
 
     @GetMapping(path = "/getall")
     public @ResponseBody
-    List<StockCreation> getAllStocks() {
-        return stockQueryService.getAllStocks();
+    ResponseEntity<List<StockCreation>> getAllStocks() {
+
+        return new ResponseEntity<>( stockQueryService.getAllStocks(), HttpStatus.OK);
     }
 
     @GetMapping(path = "/info/{id}")
     public @ResponseBody
-    Optional<StockCreation> getSingleStockDetails(@PathVariable int stockCode) {
-        return stockQueryService.getSingleStockbyId(stockCode);
+    ResponseEntity<StockCreation> getSingleStockDetails(@PathVariable int stockCode) throws Exception{
+        return new ResponseEntity<>(stockQueryService.getSingleStockbyId(stockCode), HttpStatus.OK);
     }
 
 }

@@ -26,6 +26,6 @@ public class StockCommandController {
         Optional<CompanyCreation> findById = companyRepository.findById(companyId);
         stock.setCompanyCreation(findById.get());
         stockService.addStock(stock);
-        return new ResponseEntity<>("Stock added successfully", HttpStatus.OK);
+        return new ResponseEntity<>("Stock added successfully", HttpStatus.CREATED);
     }
 }
