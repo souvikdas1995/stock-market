@@ -9,6 +9,7 @@ import query.service.repository.StockQueryRepository;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class StockQueryService {
@@ -21,5 +22,9 @@ public class StockQueryService {
         List<StockCreation> stocks = new ArrayList<StockCreation>();
         stockQueryRepository.findAll().forEach(stock -> stocks.add(stock));
         return stocks;
+    }
+
+    public Optional<StockCreation> getSingleStockbyId(int stockId){
+        return stockQueryRepository.findById(stockId);
     }
 }
