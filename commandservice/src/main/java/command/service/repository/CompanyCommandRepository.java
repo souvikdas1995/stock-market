@@ -1,7 +1,7 @@
 package command.service.repository;
 
 import command.service.bean.CompanyCreation;
-import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface CompanyCommandRepository extends CrudRepository<CompanyCreation, Integer> {
+public interface CompanyCommandRepository extends JpaRepository<CompanyCreation, Integer> {
 }

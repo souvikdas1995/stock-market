@@ -16,10 +16,17 @@ public class CompanyCommandService {
     CompanyCommandRepository companyRepository;
 
     public void addCompany(CompanyCreation company) {
-
+        if (!companyRepository.existsById(Integer.valueOf(company.getCompanyCode())))
         companyRepository.save(company);
     }
 
+    public void updateCompany(CompanyCreation company) {
+
+       if (companyRepository.existsById(Integer.valueOf(company.getCompanyCode())))
+           companyRepository.save(company);
+
+
+  }
 
     public String deleteCompany(int companyId) throws Exception{
           CompanyCreation companyCreation= companyRepository
