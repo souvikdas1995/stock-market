@@ -3,6 +3,8 @@ package query.service.bean;
 import lombok.Data;
 
 import java.util.Calendar;
+import java.util.Date;
+
 @Data
 public class StockQuery {
 
@@ -14,9 +16,7 @@ public class StockQuery {
 
     private double price;
 
-    private Calendar startDate;
-
-    private Calendar endDate;
+    private Date createdOn;
 
     private CompanyQuery companyQuery;
 }

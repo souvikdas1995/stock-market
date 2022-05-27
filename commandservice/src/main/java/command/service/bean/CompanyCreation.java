@@ -9,7 +9,7 @@ import java.util.List;
 @Data
 public class CompanyCreation {
     @Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
+    @GeneratedValue(strategy= GenerationType.SEQUENCE)
     private int companyCode;
 
     private String companyName;
