@@ -3,6 +3,7 @@ package command.service.bean;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import lombok.Setter;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.util.Calendar;
@@ -13,7 +14,7 @@ import java.util.Date;
 public class StockCreation {
 
     @Id
-    @GeneratedValue(strategy= GenerationType.SEQUENCE)
+    @GeneratedValue(strategy= GenerationType.AUTO)
     private int stockCode;
 
     private String stockName;
@@ -22,11 +23,11 @@ public class StockCreation {
 
     private double price;
 
+    @Temporal(TemporalType.DATE)
     private Date createdOn;
 
-    @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name="companyCode", nullable=false)
+    @JoinColumn(name="companyCode", nullable=true)
     private CompanyCreation companyCreation;
 }
 
