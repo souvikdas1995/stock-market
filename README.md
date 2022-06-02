@@ -2,7 +2,8 @@
 This is backend application for stock-market
 
 
-Request body to create company
+Request body to create company :
+
 {
   "ceo": "Rajesh Gopinathan",
   "companyName": "Tata Consultancy Services",
@@ -12,6 +13,7 @@ Request body to create company
   "website": "https://www.tcs.com/"
 }
 
+Request body to create stock :
 
 {
   "companyQuery": {
