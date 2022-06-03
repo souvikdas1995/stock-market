@@ -1,18 +1,12 @@
 package query.service.controller;
-
-import com.google.gson.Gson;
-import command.service.bean.CompanyCreation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import query.service.bean.CompanyQuery;
 import query.service.repository.CompanyQueryRepository;
 import query.service.service.CompanyQueryService;
-
 import javax.validation.Valid;
-import java.net.URI;
 import java.util.List;
 import java.util.Optional;
 
