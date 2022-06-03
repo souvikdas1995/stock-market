@@ -1,5 +1,6 @@
 package query.service.controller;
 
+import com.google.gson.Gson;
 import command.service.bean.CompanyCreation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -59,12 +60,14 @@ public class CompanyQueryController {
             return new ResponseEntity<>(companyQuery,HttpStatus.CREATED);
     }
 
-    @DeleteMapping("/{companyCode}")
-    public ResponseEntity<String> deleteCompany(@PathVariable int  companyCode) {
+    @DeleteMapping(value="/{companyCode}", produces = "application/json")
+    public ResponseEntity<?> deleteCompany(@PathVariable int  companyCode) {
         boolean isDeleted = companyQueryService.deleteCompany(companyCode);
         if(!isDeleted)
-            return new ResponseEntity<>("company not found with Id", HttpStatus.NOT_FOUND);
-        return new ResponseEntity<>("company deleted successfully",HttpStatus.OK);
+            return ResponseEntity.unprocessableEntity().build();
+        else
+            return ResponseEntity.noContent().build();
+
     }
 
 }
