@@ -6,4 +6,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface StockCommandRepository extends JpaRepository<StockCreation, Integer> {
+
 }

@@ -1,4 +1,5 @@
 package query.service.controller;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
@@ -8,7 +9,7 @@ import query.service.bean.StockQuery;
 import query.service.repository.StockQueryRepository;
 import query.service.service.CompanyQueryService;
 import query.service.service.StockQueryService;
-import javax.validation.Valid;
+
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -47,31 +48,4 @@ public class StockQueryController {
                                                                       @PathVariable(value = "endDate") @DateTimeFormat(pattern = "yyyy-MM-dd") Date endDate){
         return new ResponseEntity<>(stockQueryService.findAllStocksBetweenDates(companyCode, startDate, endDate),HttpStatus.OK);
     }
-
-    @PostMapping("/add")
-    public ResponseEntity<StockQuery> addStock(@RequestBody StockQuery stockQuery){
-        StockQuery addStock = stockQueryService.addstock(stockQuery);
-        if(null==addStock)
-            return ResponseEntity.unprocessableEntity().build();
-
-        return new ResponseEntity<>(stockQuery, HttpStatus.CREATED);
-    }
-
-    @PutMapping("/{stockCode}")
-    public ResponseEntity<StockQuery> updateStock(@Valid @RequestBody StockQuery stockQuery, @PathVariable int  stockCode) {
-        StockQuery updateStock = stockQueryService.updateStock(stockQuery, stockCode);
-        if(null==updateStock)
-            return ResponseEntity.unprocessableEntity().build();
-        else
-            return new ResponseEntity<>(updateStock,HttpStatus.CREATED);
-    }
-
-    @DeleteMapping("/{stockCode}")
-    public ResponseEntity<String> deleteStock(@PathVariable int  stockCode) {
-        boolean isDeleted = stockQueryService.deleteStock(stockCode);
-        if(!isDeleted)
-            return new ResponseEntity<>("stock not found with Id", HttpStatus.NOT_FOUND);
-        return new ResponseEntity<>("stock deleted successfully",HttpStatus.OK);
-    }
-
 }

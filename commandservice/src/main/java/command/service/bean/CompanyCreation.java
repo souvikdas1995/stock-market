@@ -5,11 +5,12 @@ import lombok.Data;
 import javax.persistence.*;
 import java.util.List;
 
-@Entity
 @Data
+@Entity
+@Table(name = "companycreation")
 public class CompanyCreation {
     @Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private int companyCode;
 
     private String companyName;
@@ -24,17 +25,7 @@ public class CompanyCreation {
 
     private String exchange;
 
-    @OneToMany(
-            cascade = CascadeType.ALL,
-            mappedBy = "companyCreation",
-            orphanRemoval = true,
-            fetch = FetchType.LAZY
-    )
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "companyCreation")
     private List<StockCreation> stocks;
-
-
-
-
-
 }
 

@@ -1,4 +1,5 @@
 package query.service.controller;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -6,7 +7,7 @@ import org.springframework.web.bind.annotation.*;
 import query.service.bean.CompanyQuery;
 import query.service.repository.CompanyQueryRepository;
 import query.service.service.CompanyQueryService;
-import javax.validation.Valid;
+
 import java.util.List;
 import java.util.Optional;
 
@@ -36,32 +37,4 @@ public class CompanyQueryController {
 
 
     }
-
-    @PostMapping("/add")
-    public ResponseEntity<CompanyQuery> createCompany(@Valid @RequestBody CompanyQuery company) {
-
-        CompanyQuery savedCompany = companyQueryService.createCompany(company);
-
-        return new ResponseEntity<>(savedCompany,HttpStatus.CREATED);
-    }
-
-    @PutMapping("/{companyCode}")
-    public ResponseEntity<CompanyQuery> updateCompany(@Valid @RequestBody CompanyQuery company, @PathVariable int  companyCode) {
-        CompanyQuery companyQuery = companyQueryService.updateCompany(company, companyCode);
-        if(null==companyQuery)
-            return ResponseEntity.unprocessableEntity().build();
-        else
-            return new ResponseEntity<>(companyQuery,HttpStatus.CREATED);
-    }
-
-    @DeleteMapping(value="/{companyCode}", produces = "application/json")
-    public ResponseEntity<?> deleteCompany(@PathVariable int  companyCode) {
-        boolean isDeleted = companyQueryService.deleteCompany(companyCode);
-        if(!isDeleted)
-            return ResponseEntity.unprocessableEntity().build();
-        else
-            return ResponseEntity.noContent().build();
-
-    }
-
 }

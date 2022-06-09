@@ -1,43 +1,43 @@
 package command.service.service;
 
 import command.service.bean.CompanyCreation;
-import command.service.bean.StockCreation;
 import command.service.repository.CompanyCommandRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.Optional;
 
 @Service
 public class CompanyCommandService {
 
 
+
     @Autowired
-    CompanyCommandRepository companyRepository;
+    CompanyCommandRepository companyCommandRepository;
 
-    public void addCompany(CompanyCreation company) {
-        if (!companyRepository.existsById(Integer.valueOf(company.getCompanyCode())))
-        companyRepository.save(company);
+    public CompanyCreation createCompany(CompanyCreation companyQuery){
+        CompanyCreation savedCompanyQuery = companyCommandRepository.save(companyQuery);
+        return savedCompanyQuery;
     }
 
-    public void updateCompany(CompanyCreation company) {
+    public CompanyCreation updateCompany(CompanyCreation companyQuery, int companyCode){
+        Optional<CompanyCreation> companyQueryOptional=companyCommandRepository.findById(companyCode);
+        if(!companyQueryOptional.isPresent())
+            return null;
 
-       if (companyRepository.existsById(Integer.valueOf(company.getCompanyCode())))
-           companyRepository.save(company);
+        companyQuery.setCompanyCode(companyQueryOptional.get().getCompanyCode());
+        companyCommandRepository.save(companyQuery);
+        return companyQuery;
 
-
-  }
-
-    public String deleteCompany(int companyId) throws Exception{
-          CompanyCreation companyCreation= companyRepository
-                  .findById(companyId)
-                  .orElseThrow(() -> new Exception("Company not found with Id :: "+ companyId));
-        companyRepository.delete(companyCreation);
-        return "company deleted Successfully with id "+companyId;
     }
 
+    public boolean deleteCompany(int companyCode){
+        Optional<CompanyCreation> companyQueryOptional=companyCommandRepository.findById(companyCode);
+        if(!companyQueryOptional.isPresent())
+            return false;
+        companyCommandRepository.deleteById(companyCode);
+        return true;
+
+    }
 
 }

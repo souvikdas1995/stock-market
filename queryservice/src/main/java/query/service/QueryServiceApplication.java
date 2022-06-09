@@ -7,7 +7,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
-import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 @SpringBootApplication
 @EntityScan("query.service.bean")
@@ -22,7 +21,7 @@ public class QueryServiceApplication {
         return new WebMvcConfigurerAdapter() {
             @Override
             public void addCorsMappings(CorsRegistry registry) {
-                registry.addMapping("/api/v1/**").allowedOrigins("*").allowedMethods("GET", "POST","PUT", "DELETE");
+                registry.addMapping("/api/v1/**").allowedOrigins("*").allowedMethods("GET");
             }
         };
     }

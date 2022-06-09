@@ -1,18 +1,16 @@
 package command.service.bean;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
-import lombok.Setter;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
-import java.util.Calendar;
 import java.util.Date;
 
-@Entity
 @Data
+@Entity
+@Table(name = "stockcreation")
 public class StockCreation {
-
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
     private int stockCode;
@@ -22,12 +20,15 @@ public class StockCreation {
     private String description;
 
     private double price;
-
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     @Temporal(TemporalType.DATE)
     private Date createdOn;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name="companyCode", nullable=true)
+
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name="companycreation_company_code")
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private CompanyCreation companyCreation;
 }
+
 

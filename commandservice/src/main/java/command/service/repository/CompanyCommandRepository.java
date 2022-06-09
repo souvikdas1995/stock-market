@@ -1,12 +1,10 @@
 package command.service.repository;
 
 import command.service.bean.CompanyCreation;
-import command.service.bean.StockCreation;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
-import java.util.Date;
-import java.util.List;
-
+@Repository
 public interface CompanyCommandRepository extends JpaRepository<CompanyCreation, Integer> {
 
 
