@@ -10,6 +10,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.List;
+import java.util.Optional;
 
 @RestController
 @CrossOrigin
@@ -21,6 +23,25 @@ public class CompanyCommandController {
     @Autowired
     private CompanyCommandRepository companyQueryRepository;
 
+    @GetMapping(path="/getall")
+    public @ResponseBody ResponseEntity<List<CompanyCreation>> getAllcompanyDetails() {
+
+        return new ResponseEntity<>(companyQueryRepository.findAll(), HttpStatus.OK);
+    }
+
+    public Optional<CompanyCreation> getSingleCompanybyCompanyId(Long companyCode){
+        Optional<CompanyCreation> companyQueryOptional=companyQueryRepository.findById(companyCode);
+        return companyQueryOptional;
+    }
+
+    @GetMapping(path="/info/{companyCode}")
+    public @ResponseBody ResponseEntity<CompanyCreation> getSingleCompanyDetails(@PathVariable Long companyCode) {
+        Optional<CompanyCreation> singleCompanybyCompanyId = this.getSingleCompanybyCompanyId(companyCode);
+        if(!singleCompanybyCompanyId.isPresent())
+            return  ResponseEntity.noContent().build();
+        return new ResponseEntity<>(singleCompanybyCompanyId.get(), HttpStatus.OK);
+    }
+
     @PostMapping("/add")
     public ResponseEntity<CompanyCreation> createCompany(@Valid @RequestBody CompanyCreation company) {
 
@@ -30,7 +51,7 @@ public class CompanyCommandController {
     }
 
     @PutMapping("/{companyCode}")
-    public ResponseEntity<CompanyCreation> updateCompany(@Valid @RequestBody CompanyCreation company, @PathVariable int  companyCode) {
+    public ResponseEntity<CompanyCreation> updateCompany(@Valid @RequestBody CompanyCreation company, @PathVariable Long  companyCode) {
         CompanyCreation companyQuery = companyQueryService.updateCompany(company, companyCode);
         if(null==companyQuery)
             return ResponseEntity.unprocessableEntity().build();
@@ -39,7 +60,7 @@ public class CompanyCommandController {
     }
 
     @DeleteMapping(value="/{companyCode}", produces = "application/json")
-    public ResponseEntity<?> deleteCompany(@PathVariable int  companyCode) {
+    public ResponseEntity<?> deleteCompany(@PathVariable Long  companyCode) {
         boolean isDeleted = companyQueryService.deleteCompany(companyCode);
         if(!isDeleted)
             return ResponseEntity.unprocessableEntity().build();

@@ -13,7 +13,7 @@ import java.util.Date;
 public class StockCreation {
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
-    private int stockCode;
+    private Long stockCode;
 
     private String stockName;
 
@@ -25,7 +25,7 @@ public class StockCreation {
     private Date createdOn;
 
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name="companycreation_company_code")
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private CompanyCreation companyCreation;

@@ -23,10 +23,9 @@ public class CompanyQueryService {
         return companies;
     }
 
-    public Optional<CompanyQuery> getSingleCompanybyCompanyId(int companyCode){
+    public Optional<CompanyQuery> getSingleCompanybyCompanyId(Long companyCode){
         Optional<CompanyQuery> companyQueryOptional=companyQueryRepository.findById(companyCode);
        return companyQueryOptional;
     }
-
 
 }

@@ -35,7 +35,7 @@ public class StockQueryController {
     }
 
     @GetMapping(path = "/info/{stockCode}")
-    public ResponseEntity<StockQuery> getSingleStockDetails(@PathVariable int stockCode) throws Exception{
+    public ResponseEntity<StockQuery> getSingleStockDetails(@PathVariable Long stockCode) throws Exception{
         Optional<StockQuery> singleStockbyId = stockQueryService.getSingleStockbyId(stockCode);
         if(!singleStockbyId.isPresent())
             return  ResponseEntity.noContent().build();
@@ -44,7 +44,7 @@ public class StockQueryController {
     }
 
     @GetMapping("/get/{companyCode}/{startDate}/{endDate}")
-    public ResponseEntity<List<StockQuery>> findAllStocksBetweenDates(@PathVariable(value = "companyCode") int companyCode, @PathVariable(value = "startDate") @DateTimeFormat(pattern = "yyyy-MM-dd") Date startDate,
+    public ResponseEntity<List<StockQuery>> findAllStocksBetweenDates(@PathVariable(value = "companyCode") Long companyCode, @PathVariable(value = "startDate") @DateTimeFormat(pattern = "yyyy-MM-dd") Date startDate,
                                                                       @PathVariable(value = "endDate") @DateTimeFormat(pattern = "yyyy-MM-dd") Date endDate){
         return new ResponseEntity<>(stockQueryService.findAllStocksBetweenDates(companyCode, startDate, endDate),HttpStatus.OK);
     }

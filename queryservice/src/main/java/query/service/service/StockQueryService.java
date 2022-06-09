@@ -28,11 +28,11 @@ public class StockQueryService {
         return stocks;
     }
 
-    public Optional<StockQuery> getSingleStockbyId(int stockId) throws Exception{
+    public Optional<StockQuery> getSingleStockbyId(Long stockId) throws Exception{
         return stockQueryRepository.findById(stockId);
     }
 
-    public List<StockQuery> findAllStocksBetweenDates(int companyCode, Date startDate, Date endDate){
+    public List<StockQuery> findAllStocksBetweenDates(Long companyCode, Date startDate, Date endDate){
         Optional<CompanyQuery> companyQueryOptional = companyQueryRepository.findById(companyCode);
         if(!companyQueryOptional.isPresent())
             return  null;

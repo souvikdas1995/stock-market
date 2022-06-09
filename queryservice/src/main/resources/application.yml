@@ -1,31 +1,18 @@
 spring:
+  autoconfigure:
+    exclude: org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration
   application:
     name: queryservice
-    kafka:
-      template:
-        default-topic: stock_market
-      consumer:
-        bootstrap-servers: localhost:9092
-        group-id: group_id
-        auto-offset-reset: earliest
-        key-deserializer: org.apache.kafka.common.serialization.IntegerSerializer
-        value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
-      producer:
-        bootstrap-servers: localhost:9092
-        key-serializer: org.apache.kafka.common.serialization.IntegerSerializer
-        value-serializer: org.apache.kafka.common.serialization.StringSerializer
-
-  jpa:
-    show-sql: true
-    hibernate:
-      ddl-auto: update
-    properties.hibernate.dialect: org.hibernate.dialect.MySQL5InnoDBDialect
-
-  datasource:
-    url: jdbc:mysql://localhost:3306/stock_market
-    username: root
-    password: pass@word1
-    driver-class-name: com.mysql.cj.jdbc.Driver
+  kafka:
+    consumer:
+      bootstrap-servers: localhost:9092
+      group-id: group_id
+      auto-offset-reset: earliest
+      key-deserializer: org.apache.kafka.common.serialization.LongDeserializer
+      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+  data:
+    mongodb:
+      uri: mongodb://localhost:27017/stock_market
 server:
   port : 8081
 

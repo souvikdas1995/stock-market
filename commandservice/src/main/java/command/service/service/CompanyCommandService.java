@@ -15,23 +15,29 @@ public class CompanyCommandService {
     @Autowired
     CompanyCommandRepository companyCommandRepository;
 
+    @Autowired
+    MessageProducer messageProducer;
+
     public CompanyCreation createCompany(CompanyCreation companyQuery){
-        CompanyCreation savedCompanyQuery = companyCommandRepository.save(companyQuery);
+        CompanyCreation savedCompanyQuery = companyCommandRepository.saveAndFlush(companyQuery);
+        messageProducer.publishMessage(companyCommandRepository.findById(savedCompanyQuery.getCompanyCode()).get());
         return savedCompanyQuery;
     }
 
-    public CompanyCreation updateCompany(CompanyCreation companyQuery, int companyCode){
+    public CompanyCreation updateCompany(CompanyCreation companyQuery, Long companyCode){
         Optional<CompanyCreation> companyQueryOptional=companyCommandRepository.findById(companyCode);
         if(!companyQueryOptional.isPresent())
             return null;
 
         companyQuery.setCompanyCode(companyQueryOptional.get().getCompanyCode());
-        companyCommandRepository.save(companyQuery);
+        CompanyCreation save = companyCommandRepository.saveAndFlush(companyQuery);
+        CompanyCreation companyCreation = companyCommandRepository.findById(companyQuery.getCompanyCode()).get();
+        messageProducer.publishMessage(companyCreation);
         return companyQuery;
 
     }
 
-    public boolean deleteCompany(int companyCode){
+    public boolean deleteCompany(Long companyCode){
         Optional<CompanyCreation> companyQueryOptional=companyCommandRepository.findById(companyCode);
         if(!companyQueryOptional.isPresent())
             return false;

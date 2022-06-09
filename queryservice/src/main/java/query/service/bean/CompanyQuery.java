@@ -1,16 +1,15 @@
 package query.service.bean;
 
 import lombok.Data;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 
-import javax.persistence.*;
 import java.util.List;
+@Document
 @Data
-@Entity
-@Table(name = "companyquery")
 public class CompanyQuery {
     @Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
-    private int companyCode;
+    private Long companyCode;
 
     private String companyName;
 
@@ -24,7 +23,6 @@ public class CompanyQuery {
 
     private String exchange;
 
-    @OneToMany(fetch=FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "companyQuery")
     private List<StockQuery> stocks;
 
 

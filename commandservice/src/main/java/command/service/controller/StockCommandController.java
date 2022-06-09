@@ -36,7 +36,7 @@ public class StockCommandController {
     }
 
     @PutMapping("/{stockCode}")
-    public ResponseEntity<StockCreation> updateStock(@Valid @RequestBody StockCreation stockQuery, @PathVariable int  stockCode) {
+    public ResponseEntity<StockCreation> updateStock(@Valid @RequestBody StockCreation stockQuery, @PathVariable Long  stockCode) {
         StockCreation updateStock = stockQueryService.updateStock(stockQuery, stockCode);
         if(null==updateStock)
             return ResponseEntity.unprocessableEntity().build();
@@ -45,7 +45,7 @@ public class StockCommandController {
     }
 
     @DeleteMapping("/{stockCode}")
-    public ResponseEntity<String> deleteStock(@PathVariable int  stockCode) {
+    public ResponseEntity<String> deleteStock(@PathVariable Long  stockCode) {
         boolean isDeleted = stockQueryService.deleteStock(stockCode);
         if(!isDeleted)
             return new ResponseEntity<>("stock not found with Id", HttpStatus.NOT_FOUND);

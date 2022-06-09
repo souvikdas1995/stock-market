@@ -1,32 +1,30 @@
 package query.service.bean;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
+import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.format.annotation.DateTimeFormat;
 
-import javax.persistence.*;
+import javax.persistence.Id;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import java.util.Date;
 
+@Document
 @Data
-@Entity
-@Table(name = "stockquery")
 public class StockQuery {
     @Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
-    private int stockCode;
+    private Long stockCode;
 
     private String stockName;
 
     private String description;
 
     private double price;
+
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     @Temporal(TemporalType.DATE)
     private Date createdOn;
 
-
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name="companyquery_company_code")
-    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private CompanyQuery companyQuery;
+
 }

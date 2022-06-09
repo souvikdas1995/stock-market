@@ -18,16 +18,20 @@ public class StockCommandService {
     @Autowired
     CompanyCommandRepository companyCommandRepository;
 
+    @Autowired
+    MessageProducer messageProducer;
+
     public StockCreation addstock(StockCreation stockQuery) {
         Optional<CompanyCreation> companyQueryOptional = companyCommandRepository.findById(stockQuery.getCompanyCreation().getCompanyCode());
         if (!companyQueryOptional.isPresent())
             return null;
         stockQuery.setCompanyCreation(companyQueryOptional.get());
         stockCommandRepository.save(stockQuery);
+        messageProducer.publishMessage(companyCommandRepository.findById(stockQuery.getCompanyCreation().getCompanyCode()).get());
         return stockQuery;
     }
 
-    public StockCreation updateStock(StockCreation stockQuery, int stockCode) {
+    public StockCreation updateStock(StockCreation stockQuery, Long stockCode) {
         Optional<CompanyCreation> companyQueryOptional = companyCommandRepository.findById(stockQuery.getCompanyCreation().getCompanyCode());
         if (!companyQueryOptional.isPresent())
             return null;
@@ -37,11 +41,13 @@ public class StockCommandService {
 
         stockQuery.setCompanyCreation(companyQueryOptional.get());
         stockQuery.setStockCode(stockQueryOptional.get().getStockCode());
-        stockCommandRepository.save(stockQuery);
+        StockCreation save = stockCommandRepository.save(stockQuery);
+        CompanyCreation companyCreation = companyCommandRepository.findById(stockQuery.getCompanyCreation().getCompanyCode()).get();
+        messageProducer.publishMessage(companyCreation);
         return stockQuery;
     }
 
-    public boolean deleteStock(int stockCode) {
+    public boolean deleteStock(Long stockCode) {
         Optional<StockCreation> stockQueryOptional = stockCommandRepository.findById(stockCode);
         if (!stockQueryOptional.isPresent())
             return false;

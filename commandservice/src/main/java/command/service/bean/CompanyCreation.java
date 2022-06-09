@@ -11,7 +11,7 @@ import java.util.List;
 public class CompanyCreation {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private int companyCode;
+    private Long companyCode;
 
     private String companyName;
 

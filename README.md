@@ -16,7 +16,7 @@ Request body to create company :
 Request body to create stock :
 
 {
-  "companyQuery": {
+  "companyCreation": {
     "companyCode": 1
   },
   "createdOn": "2022-05-28T05:35:02.587Z",

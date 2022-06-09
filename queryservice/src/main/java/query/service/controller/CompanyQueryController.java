@@ -28,7 +28,7 @@ public class CompanyQueryController {
     }
 
     @GetMapping(path="/info/{companyCode}")
-    public @ResponseBody ResponseEntity<CompanyQuery> getSingleCompanyDetails(@PathVariable int companyCode) {
+    public @ResponseBody ResponseEntity<CompanyQuery> getSingleCompanyDetails(@PathVariable Long companyCode) {
         Optional<CompanyQuery> singleCompanybyCompanyId = companyQueryService.getSingleCompanybyCompanyId(companyCode);
         if(!singleCompanybyCompanyId.isPresent())
             return  ResponseEntity.noContent().build();
