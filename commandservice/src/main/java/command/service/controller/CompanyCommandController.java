@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -25,8 +26,9 @@ public class CompanyCommandController {
 
     @GetMapping(path="/getall")
     public @ResponseBody ResponseEntity<List<CompanyCreation>> getAllcompanyDetails() {
-
-        return new ResponseEntity<>(companyQueryRepository.findAll(), HttpStatus.OK);
+        List<CompanyCreation> companyCreations =new ArrayList<>();
+        companyQueryRepository.findAll().forEach( e-> companyCreations.add(e) );
+        return new ResponseEntity<>(companyCreations, HttpStatus.OK);
     }
 
     public Optional<CompanyCreation> getSingleCompanybyCompanyId(Long companyCode){

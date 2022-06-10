@@ -7,6 +7,7 @@ import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Service;
 import query.service.bean.CompanyQuery;
 import query.service.repository.CompanyQueryRepository;
+import query.service.repository.StockQueryRepository;
 
 import java.util.Optional;
 
@@ -20,6 +21,9 @@ public class MessageConsumer {
 
     @Autowired
     CompanyQueryRepository companyQueryRepository;
+
+    @Autowired
+    StockQueryRepository stockQueryRepository;
 
     private static final ObjectMapper OBJECT_MAPPER = new ObjectMapper();
 
@@ -39,6 +43,9 @@ public class MessageConsumer {
                 existingCompany.setWebsite(receivedcompanyQuery.getWebsite());
                 existingCompany.setStocks(receivedcompanyQuery.getStocks());
                 companyQueryRepository.save(existingCompany);
+                if(existingCompany.getStocks().size()>0){
+                    existingCompany.getStocks().forEach(entity -> stockQueryRepository.save(entity));
+                }
             }
 
             else{
@@ -52,6 +59,9 @@ public class MessageConsumer {
                 newCompany.setWebsite(receivedcompanyQuery.getWebsite());
                 newCompany.setStocks(receivedcompanyQuery.getStocks());
                 companyQueryRepository.save(newCompany);
+                if(newCompany.getStocks().size()>0){
+                    newCompany.getStocks().forEach(entity -> stockQueryRepository.save(entity));
+                }
             }
 
         }catch(Exception e){

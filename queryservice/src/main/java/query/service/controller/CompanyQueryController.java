@@ -1,13 +1,16 @@
 package query.service.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import query.service.bean.CompanyQuery;
+import query.service.bean.StockQuery;
 import query.service.repository.CompanyQueryRepository;
 import query.service.service.CompanyQueryService;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -36,5 +39,11 @@ public class CompanyQueryController {
 
 
 
+    }
+
+    @GetMapping("/get/{companyCode}/{startDate}/{endDate}")
+    public ResponseEntity<List<StockQuery>> findAllStocksBetweenDates(@PathVariable(value = "companyCode") Long companyCode, @PathVariable(value = "startDate") @DateTimeFormat(pattern = "yyyy-MM-dd") Date startDate,
+                                                                      @PathVariable(value = "endDate") @DateTimeFormat(pattern = "yyyy-MM-dd") Date endDate){
+        return new ResponseEntity<>(companyQueryService.findAllStocksBetweenDates(companyCode, startDate, endDate),HttpStatus.OK);
     }
 }

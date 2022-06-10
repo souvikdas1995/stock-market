@@ -19,9 +19,12 @@ public class CompanyCommandService {
     MessageProducer messageProducer;
 
     public CompanyCreation createCompany(CompanyCreation companyQuery){
-        CompanyCreation savedCompanyQuery = companyCommandRepository.saveAndFlush(companyQuery);
-        messageProducer.publishMessage(companyCommandRepository.findById(savedCompanyQuery.getCompanyCode()).get());
-        return savedCompanyQuery;
+        companyCommandRepository.save(companyQuery);
+        CompanyCreation companyCreation = companyCommandRepository.findById(companyQuery.getCompanyCode()).get();
+        companyCommandRepository.refresh(companyCreation);
+        messageProducer.publishMessage(companyCreation);
+        return companyCreation;
+
     }
 
     public CompanyCreation updateCompany(CompanyCreation companyQuery, Long companyCode){
@@ -30,10 +33,12 @@ public class CompanyCommandService {
             return null;
 
         companyQuery.setCompanyCode(companyQueryOptional.get().getCompanyCode());
-        CompanyCreation save = companyCommandRepository.saveAndFlush(companyQuery);
-        CompanyCreation companyCreation = companyCommandRepository.findById(companyQuery.getCompanyCode()).get();
-        messageProducer.publishMessage(companyCreation);
-        return companyQuery;
+        companyCommandRepository.save(companyQuery);
+
+        CompanyCreation companyupdation = companyCommandRepository.findById(companyQuery.getCompanyCode()).get();
+        companyCommandRepository.refresh(companyupdation);
+        messageProducer.publishMessage(companyupdation);
+        return companyupdation;
 
     }
 

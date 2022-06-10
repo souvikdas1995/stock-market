@@ -27,7 +27,10 @@ public class StockCommandService {
             return null;
         stockQuery.setCompanyCreation(companyQueryOptional.get());
         stockCommandRepository.save(stockQuery);
-        messageProducer.publishMessage(companyCommandRepository.findById(stockQuery.getCompanyCreation().getCompanyCode()).get());
+
+        CompanyCreation companyCreation = companyCommandRepository.findById(stockQuery.getCompanyCreation().getCompanyCode()).get();
+        companyCommandRepository.refresh(companyCreation);
+        messageProducer.publishMessage(companyCreation);
         return stockQuery;
     }
 
@@ -41,9 +44,11 @@ public class StockCommandService {
 
         stockQuery.setCompanyCreation(companyQueryOptional.get());
         stockQuery.setStockCode(stockQueryOptional.get().getStockCode());
-        StockCreation save = stockCommandRepository.save(stockQuery);
-        CompanyCreation companyCreation = companyCommandRepository.findById(stockQuery.getCompanyCreation().getCompanyCode()).get();
-        messageProducer.publishMessage(companyCreation);
+        stockCommandRepository.save(stockQuery);
+
+        CompanyCreation companyupdation= companyCommandRepository.findById(stockQuery.getCompanyCreation().getCompanyCode()).get();
+        companyCommandRepository.refresh(companyupdation);
+        messageProducer.publishMessage(companyupdation);
         return stockQuery;
     }
 
