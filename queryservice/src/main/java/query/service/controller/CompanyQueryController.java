@@ -41,9 +41,5 @@ public class CompanyQueryController {
 
     }
 
-    @GetMapping("/get/{companyCode}/{startDate}/{endDate}")
-    public ResponseEntity<List<StockQuery>> findAllStocksBetweenDates(@PathVariable(value = "companyCode") Long companyCode, @PathVariable(value = "startDate") @DateTimeFormat(pattern = "yyyy-MM-dd") Date startDate,
-                                                                      @PathVariable(value = "endDate") @DateTimeFormat(pattern = "yyyy-MM-dd") Date endDate){
-        return new ResponseEntity<>(companyQueryService.findAllStocksBetweenDates(companyCode, startDate, endDate),HttpStatus.OK);
-    }
+
 }

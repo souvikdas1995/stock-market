@@ -6,10 +6,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Service;
 import query.service.bean.CompanyQuery;
+import query.service.bean.StockQuery;
 import query.service.repository.CompanyQueryRepository;
 import query.service.repository.StockQueryRepository;
 
+import java.util.List;
+import java.util.Map;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @Log4j2
@@ -43,9 +47,12 @@ public class MessageConsumer {
                 existingCompany.setWebsite(receivedcompanyQuery.getWebsite());
                 existingCompany.setStocks(receivedcompanyQuery.getStocks());
                 companyQueryRepository.save(existingCompany);
-                if(existingCompany.getStocks().size()>0){
-                    existingCompany.getStocks().forEach(entity -> stockQueryRepository.save(entity));
-                }
+                Map<Long, StockQuery> map = existingCompany.getStocks().stream()
+                        .collect(Collectors.toMap(s -> s.getStockCode(), s -> s));
+                List<StockQuery> hasDiffItem = receivedcompanyQuery.getStocks().stream()
+                        .filter(s -> !map.get(s.getStockCode()).getStockCode().equals(s.getStockCode()))
+                        .collect(Collectors.toList());
+                    stockQueryRepository.saveAll(hasDiffItem);
             }
 
             else{
@@ -60,7 +67,7 @@ public class MessageConsumer {
                 newCompany.setStocks(receivedcompanyQuery.getStocks());
                 companyQueryRepository.save(newCompany);
                 if(newCompany.getStocks().size()>0){
-                    newCompany.getStocks().forEach(entity -> stockQueryRepository.save(entity));
+                    stockQueryRepository.saveAll(newCompany.getStocks());
                 }
             }
 
@@ -68,4 +75,6 @@ public class MessageConsumer {
             e.printStackTrace();
         }
     }
+
+
 }
