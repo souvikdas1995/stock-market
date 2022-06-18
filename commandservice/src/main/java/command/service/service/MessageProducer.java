@@ -22,7 +22,7 @@ public class MessageProducer {
         try{
             String value = OBJECT_MAPPER.writeValueAsString(companyCreation);
             log.info(String.format("#### -> Producing message -> %s", value));
-            this.kafkaTemplate.sendDefault(companyCreation.getCompanyCode(), value);
+            this.kafkaTemplate.send(TOPIC,companyCreation.getCompanyCode(), value);
         }catch (Exception e){
             e.printStackTrace();
         }
