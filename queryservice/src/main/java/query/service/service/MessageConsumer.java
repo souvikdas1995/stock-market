@@ -11,8 +11,8 @@ import query.service.repository.CompanyQueryRepository;
 import query.service.repository.StockQueryRepository;
 
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
@@ -45,14 +45,17 @@ public class MessageConsumer {
                 existingCompany.setExchange(receivedcompanyQuery.getExchange());
                 existingCompany.setTurnover(receivedcompanyQuery.getTurnover());
                 existingCompany.setWebsite(receivedcompanyQuery.getWebsite());
+                Set<Long> existingStockIds = existingCompany.getStocks()
+                        .stream()
+                        .map(StockQuery::getStockCode)
+                        .collect(Collectors.toSet());
+                List<StockQuery> hasDiffItem = receivedcompanyQuery.getStocks()
+                        .stream()
+                        .filter(receivedStock -> !existingStockIds.contains(receivedStock.getStockCode()))
+                        .collect(Collectors.toList());
                 existingCompany.setStocks(receivedcompanyQuery.getStocks());
                 companyQueryRepository.save(existingCompany);
-                Map<Long, StockQuery> map = existingCompany.getStocks().stream()
-                        .collect(Collectors.toMap(s -> s.getStockCode(), s -> s));
-                List<StockQuery> hasDiffItem = receivedcompanyQuery.getStocks().stream()
-                        .filter(s -> !map.get(s.getStockCode()).getStockCode().equals(s.getStockCode()))
-                        .collect(Collectors.toList());
-                    stockQueryRepository.saveAll(hasDiffItem);
+                stockQueryRepository.saveAll(hasDiffItem);
             }
 
             else{
