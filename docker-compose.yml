@@ -65,3 +65,13 @@ services:
     restart: always
     ports:
       - 27018:27017
+   #service 7 : frontend from dockerhub
+
+  frontend_angular:
+    image: "souvikd95/stock-market-frontend:latest"
+    ports:
+      - "4200:80"
+    restart: always
+    depends_on:
+      - commandService
+      - queryService
