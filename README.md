@@ -1,5 +1,5 @@
 # stock-market
-This is backend application for stock-market
+This is a backend application for stock-market written in Java 11 and Spring Boot Rest Api Microservice
 
 ## technology and tools used :
 
