@@ -10,8 +10,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -24,25 +22,25 @@ public class CompanyCommandController {
     @Autowired
     private CompanyCommandRepository companyQueryRepository;
 
-    @GetMapping(path="/getall")
-    public @ResponseBody ResponseEntity<List<CompanyCreation>> getAllcompanyDetails() {
-        List<CompanyCreation> companyCreations =new ArrayList<>();
-        companyQueryRepository.findAll().forEach( e-> companyCreations.add(e) );
-        return new ResponseEntity<>(companyCreations, HttpStatus.OK);
-    }
+//    @GetMapping(path="/getall")
+//    public @ResponseBody ResponseEntity<List<CompanyCreation>> getAllcompanyDetails() {
+//        List<CompanyCreation> companyCreations =new ArrayList<>();
+//        companyQueryRepository.findAll().forEach( e-> companyCreations.add(e) );
+//        return new ResponseEntity<>(companyCreations, HttpStatus.OK);
+//    }
 
     public Optional<CompanyCreation> getSingleCompanybyCompanyId(Long companyCode){
         Optional<CompanyCreation> companyQueryOptional=companyQueryRepository.findById(companyCode);
         return companyQueryOptional;
     }
 
-    @GetMapping(path="/info/{companyCode}")
-    public @ResponseBody ResponseEntity<CompanyCreation> getSingleCompanyDetails(@PathVariable Long companyCode) {
-        Optional<CompanyCreation> singleCompanybyCompanyId = this.getSingleCompanybyCompanyId(companyCode);
-        if(!singleCompanybyCompanyId.isPresent())
-            return  ResponseEntity.noContent().build();
-        return new ResponseEntity<>(singleCompanybyCompanyId.get(), HttpStatus.OK);
-    }
+//    @GetMapping(path="/info/{companyCode}")
+//    public @ResponseBody ResponseEntity<CompanyCreation> getSingleCompanyDetails(@PathVariable Long companyCode) {
+//        Optional<CompanyCreation> singleCompanybyCompanyId = this.getSingleCompanybyCompanyId(companyCode);
+//        if(!singleCompanybyCompanyId.isPresent())
+//            return  ResponseEntity.noContent().build();
+//        return new ResponseEntity<>(singleCompanybyCompanyId.get(), HttpStatus.OK);
+//    }
 
     @PostMapping("/add")
     public ResponseEntity<CompanyCreation> createCompany(@Valid @RequestBody CompanyCreation company) {
