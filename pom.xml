@@ -6,7 +6,6 @@
 	<modules>
 		<module>apigateway</module>
 		<module>serviceregistry</module>
-		<module>commonutils</module>
 		<module>commandservice</module>
 		<module>queryservice</module>
 	</modules>
