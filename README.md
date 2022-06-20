@@ -54,10 +54,10 @@ To run just follow the below command from the root directory of backend app:
 
 ## some snapshots of cqrs microservice swagger : 
 
-### Aggregates : localhost:8081//swagger-ui.html
+### Projections : localhost:8081//swagger-ui.html
 ![snap5](https://user-images.githubusercontent.com/32546790/174550237-90444f01-6eee-4fd6-93e6-fef036819825.PNG)
 
-### Projections : localhost:8082//swagger-ui.html
+### Aggregates : localhost:8082//swagger-ui.html
 ![snap6](https://user-images.githubusercontent.com/32546790/174551025-e0d92207-fee9-44b3-8276-7ca5ddb5c787.PNG)
 
 
