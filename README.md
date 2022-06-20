@@ -54,7 +54,10 @@ To run just follow the below command from the root directory of backend app:
 
 ## some snapshots of cqrs microservice swagger : 
 
+### localhost:8081//swagger-ui.html queryservice
 ![snap5](https://user-images.githubusercontent.com/32546790/174550237-90444f01-6eee-4fd6-93e6-fef036819825.PNG)
+
+### localhost:8082//swagger-ui.html commandservice
 ![snap6](https://user-images.githubusercontent.com/32546790/174551025-e0d92207-fee9-44b3-8276-7ca5ddb5c787.PNG)
 
 
