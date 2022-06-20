@@ -23,7 +23,7 @@ MySQL
   "description": "global IT services, consulting and business solutions organization",
   "exchange": "BSE",
   "turnover": 200,
-  "website": "https://www.tcs.com/"
+  "website": "https://www.cognizant.com/"
 }
 
 ## Request body to create stock :
