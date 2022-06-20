@@ -42,5 +42,6 @@ To run just follow the below command from the root directory of backend app:
 ## some snapshots of swagger : 
 
 ![snap5](https://user-images.githubusercontent.com/32546790/174550237-90444f01-6eee-4fd6-93e6-fef036819825.PNG)
-![snap6](https://user-images.githubusercontent.com/32546790/174550242-43904807-5f1d-40e0-8eca-7b964fc08841.PNG)
+![snap6](https://user-images.githubusercontent.com/32546790/174551025-e0d92207-fee9-44b3-8276-7ca5ddb5c787.PNG)
+
 
