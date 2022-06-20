@@ -4,8 +4,6 @@
 	<modelVersion>4.0.0</modelVersion>
 	<packaging>pom</packaging>
 	<modules>
-		<module>apigateway</module>
-		<module>serviceregistry</module>
 		<module>commandservice</module>
 		<module>queryservice</module>
 	</modules>
