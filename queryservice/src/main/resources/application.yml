@@ -1,4 +1,25 @@
 spring:
+  profiles: default
+  autoconfigure:
+    exclude: org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration
+  application:
+    name: queryservice
+  kafka:
+    consumer:
+      bootstrap-servers: localhost:9092
+      group-id: group_id
+      auto-offset-reset: earliest
+      key-deserializer: org.apache.kafka.common.serialization.LongDeserializer
+      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+  data:
+    mongodb:
+      uri: mongodb://localhost:27017/stock_market
+server:
+  port : 8081
+
+---
+spring:
+  profiles: docker
   autoconfigure:
     exclude: org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration
   application:
@@ -15,5 +36,3 @@ spring:
       uri: mongodb://mongo_db:27017/stock_market
 server:
   port : 8081
-
-
