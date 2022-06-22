@@ -6,7 +6,9 @@
 	<modules>
 		<module>commandservice</module>
 		<module>queryservice</module>
-	</modules>
+		<module>api-gateway</module>
+        <module>service-registry</module>
+    </modules>
 	<groupId>com.cognizant.fse</groupId>
 	<artifactId>stock-market</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
