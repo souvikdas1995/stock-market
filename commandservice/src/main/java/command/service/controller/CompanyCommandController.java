@@ -14,7 +14,7 @@ import java.util.Optional;
 
 @RestController
 @CrossOrigin
-@RequestMapping("/api/v1/company")
+@RequestMapping("/api/v1/command/company")
 public class CompanyCommandController {
     @Autowired
     private CompanyCommandService companyQueryService;

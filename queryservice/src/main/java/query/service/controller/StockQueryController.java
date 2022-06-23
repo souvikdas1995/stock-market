@@ -15,7 +15,7 @@ import java.util.List;
 import java.util.Optional;
 @RestController
 @CrossOrigin
-@RequestMapping("/api/v1/stock")
+@RequestMapping("/api/v1/query/stock")
 public class StockQueryController {
 
     @Autowired

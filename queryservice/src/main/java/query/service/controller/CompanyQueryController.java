@@ -1,22 +1,19 @@
 package query.service.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import query.service.bean.CompanyQuery;
-import query.service.bean.StockQuery;
 import query.service.repository.CompanyQueryRepository;
 import query.service.service.CompanyQueryService;
 
-import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
 @RestController
 @CrossOrigin
-@RequestMapping("/api/v1/company")
+@RequestMapping("/api/v1/query/company")
 public class CompanyQueryController {
     @Autowired
     private CompanyQueryService companyQueryService;

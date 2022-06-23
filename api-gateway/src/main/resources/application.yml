@@ -1,0 +1,24 @@
+spring:
+  profiles: default
+  application:
+    name: api-gateway
+server:
+  port: 8083
+zuul:
+  prefix: /api/v1
+  routes:
+    commandservice:
+      path: /command/**
+      serviceeId: COMMANDSERVICE
+    queryservice:
+      path: /query/**
+      serviceId: QUERYSERVICE
+eureka:
+  client:
+    registerWithEureka: true
+    fetchRegistry: true
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka/
+  instance:
+    preferIpAddress: true
+  lease-renewal-interval-in-seconds: 30
