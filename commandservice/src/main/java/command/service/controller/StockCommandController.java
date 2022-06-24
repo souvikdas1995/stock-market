@@ -13,7 +13,7 @@ import javax.validation.Valid;
 
 @RestController
 @CrossOrigin
-@RequestMapping("/api/v1/command/stock")
+@RequestMapping("/api/v1/stock")
 public class StockCommandController {
 
     @Autowired

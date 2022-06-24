@@ -5,7 +5,6 @@ spring:
 server:
   port: 8083
 zuul:
-  prefix: /api/v1
   routes:
     commandservice:
       path: /command/**
