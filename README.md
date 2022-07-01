@@ -38,6 +38,17 @@ MySQL
   "stockName": "Cognizant Stock Name"
 }
 
+Request to create user:
+{
+    "username": "user4",
+    "password": "password5",
+    "roles": [
+            {"name": "ROLE_ADMIN"}
+
+        ]
+
+}
+
 ## frontend
 Frontend application is dockerized and image is available in https://hub.docker.com/repository/docker/souvikd95/stock-market-frontend
 
