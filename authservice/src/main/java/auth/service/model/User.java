@@ -1,8 +1,6 @@
 package auth.service.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
 import javax.persistence.*;
 import java.util.List;
@@ -11,33 +9,17 @@ import java.util.List;
  * Created by nydiarra on 06/05/17.
  */
 @Entity
-@Table(name = "app_user")
-@Getter
-@Setter
+@Data
 public class User {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @Column(name = "username")
-    private String username;
+    private String userName;
 
-    @Column(name = "password")
-    @JsonIgnore
     private String password;
 
-    @Column(name = "first_name")
-    private String firstName;
-
-    @Column(name = "last_name")
-    private String lastName;
-
-    /**
-     * Roles are being eagerly loaded here because
-     * they are a fairly small collection of items for this example.
-     */
-    @ManyToMany(fetch = FetchType.EAGER)
+    @OneToMany(fetch = FetchType.EAGER, cascade=CascadeType.ALL)
     @JoinTable(name = "user_role", joinColumns
             = @JoinColumn(name = "user_id",
             referencedColumnName = "id"),
