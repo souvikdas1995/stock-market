@@ -50,7 +50,7 @@ import java.util.List;
 
         @PostMapping("/signup")
         public ResponseEntity<?> registerUser(@RequestBody User signUpRequest) {
-            if (userRepository.existsByUserName(signUpRequest.getUserName())) {
+            if (userRepository.existsByName(signUpRequest.getName())) {
                 return ResponseEntity
                         .badRequest()
                         .body(new MessageResponse("Error: Username is already taken!"));
@@ -60,16 +60,16 @@ import java.util.List;
             if (receivedRoles==null || receivedRoles.isEmpty()) {
                 receivedRoles=new ArrayList<>();
                 Role userRole =new Role();
-                userRole.setRoleName("ROLE_USER");
+                userRole.setName("ROLE_USER");
                 receivedRoles.add(userRole);
                 signUpRequest.setRoles(receivedRoles);
-                if(!roleRepository.existsByRoleName("ROLE_USER"))
+                if(!roleRepository.existsByName("ROLE_USER"))
                      roleRepository.saveAll(receivedRoles);
             }
             else {
 
                 receivedRoles.forEach((role)  ->{
-                        if(!roleRepository.existsByRoleName(role.getRoleName()))
+                        if(!roleRepository.existsByName(role.getName()))
                             roleRepository.save(role);
                 });
 

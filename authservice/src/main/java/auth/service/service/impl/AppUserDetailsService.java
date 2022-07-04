@@ -11,8 +11,10 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Component;
 
+import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Component
 @Log4j2
@@ -21,21 +23,21 @@ public class AppUserDetailsService implements UserDetailsService {
     private UserRepository userRepository;
 
     @Override
+    @Transactional
     public UserDetails loadUserByUsername(String userName) throws UsernameNotFoundException {
 
-
-//        if(!userRepository.existsByUserName(userName)) {
-//            throw new UsernameNotFoundException(String.format("The username %s doesn't exist", userName));
-//        }
-        //User user= userRepository.findByUserName(userName);
-        User user=userRepository.findById(2L).get();
+        Optional<User> userOptional= userRepository.findByName(userName);
+       if(!userOptional.isPresent()) {
+           throw new UsernameNotFoundException(String.format("The username %s doesn't exist", userName));
+       }
+        User user=userOptional.get();
         List<GrantedAuthority> authorities = new ArrayList<>();
         user.getRoles().forEach(role -> {
-            authorities.add(new SimpleGrantedAuthority(role.getRoleName()));
+            authorities.add(new SimpleGrantedAuthority(role.getName()));
         });
 
         UserDetails userDetails = new org.springframework.security.core.userdetails.
-                User(user.getUserName(), user.getPassword(), authorities);
+                User(user.getName(), user.getPassword(), authorities);
 
         return userDetails;
     }

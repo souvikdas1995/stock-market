@@ -9,13 +9,17 @@ import java.util.List;
  * Created by nydiarra on 06/05/17.
  */
 @Entity
+@Table(name = "user",
+        uniqueConstraints = {
+                @UniqueConstraint(columnNames = "name")
+        })
 @Data
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    private String userName;
+    private String name;
 
     private String password;
 

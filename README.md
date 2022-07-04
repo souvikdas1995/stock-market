@@ -38,11 +38,11 @@ MySQL
   "stockName": "Cognizant Stock Name"
 }
 
-Request to create user:
+Request to create user with ADMIN_ROLE:
 {
-    "username": "user4",
-    "password": "password5",
-    "roles": [
+	"name" : "user97",
+	"password" : "password",
+	"roles": [
             {"name": "ROLE_ADMIN"}
 
         ]
