@@ -7,6 +7,7 @@ import command.service.service.StockCommandService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -27,6 +28,7 @@ public class StockCommandController {
 
 
     @PostMapping("/add")
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     public ResponseEntity<StockCreation> addStock(@RequestBody StockCreation stockQuery){
         StockCreation addStock = stockQueryService.addstock(stockQuery);
         if(null==addStock)
@@ -36,6 +38,7 @@ public class StockCommandController {
     }
 
     @PutMapping("/{stockCode}")
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     public ResponseEntity<StockCreation> updateStock(@Valid @RequestBody StockCreation stockQuery, @PathVariable Long  stockCode) {
         StockCreation updateStock = stockQueryService.updateStock(stockQuery, stockCode);
         if(null==updateStock)
@@ -45,6 +48,7 @@ public class StockCommandController {
     }
 
     @DeleteMapping("/{stockCode}")
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     public ResponseEntity<String> deleteStock(@PathVariable Long  stockCode) {
         boolean isDeleted = stockQueryService.deleteStock(stockCode);
         if(!isDeleted)

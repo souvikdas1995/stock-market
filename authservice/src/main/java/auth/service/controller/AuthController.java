@@ -1,17 +1,17 @@
 package auth.service.controller;
 
 import auth.service.model.MessageResponse;
-import auth.service.model.RandomCity;
 import auth.service.model.Role;
 import auth.service.model.User;
 import auth.service.repository.RoleRepository;
 import auth.service.repository.UserRepository;
-import auth.service.service.GenericService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,8 +19,6 @@ import java.util.List;
 @RestController
     @RequestMapping("/springjwt")
     public class AuthController {
-        @Autowired
-        private GenericService userService;
 
 
         @Autowired
@@ -33,19 +31,6 @@ import java.util.List;
 
         @Autowired
         PasswordEncoder encoder;
-
-        @RequestMapping(value ="/cities")
-        @PreAuthorize("hasAuthority('ADMIN_USER') or hasAuthority('STANDARD_USER')")
-        public List<RandomCity> getUser(){
-            return userService.findAllRandomCities();
-        }
-
-        @RequestMapping(value ="/users", method = RequestMethod.GET)
-        @PreAuthorize("hasAuthority('ADMIN_USER')")
-        public List<User> getUsers(){
-
-            return userService.findAllUsers();
-        }
 
 
         @PostMapping("/signup")

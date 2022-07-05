@@ -1,4 +1,4 @@
-package auth.service.config;
+package command.service.configuration;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;

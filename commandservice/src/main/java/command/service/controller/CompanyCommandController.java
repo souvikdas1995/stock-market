@@ -7,6 +7,7 @@ import command.service.service.CompanyCommandService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -29,7 +30,7 @@ public class CompanyCommandController {
 //        return new ResponseEntity<>(companyCreations, HttpStatus.OK);
 //    }
 
-    public Optional<CompanyCreation> getSingleCompanybyCompanyId(Long companyCode){
+    private Optional<CompanyCreation> getSingleCompanybyCompanyId(Long companyCode){
         Optional<CompanyCreation> companyQueryOptional=companyQueryRepository.findById(companyCode);
         return companyQueryOptional;
     }
@@ -43,6 +44,7 @@ public class CompanyCommandController {
 //    }
 
     @PostMapping("/add")
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     public ResponseEntity<CompanyCreation> createCompany(@Valid @RequestBody CompanyCreation company) {
 
         CompanyCreation savedCompany = companyQueryService.createCompany(company);
@@ -51,6 +53,7 @@ public class CompanyCommandController {
     }
 
     @PutMapping("/{companyCode}")
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     public ResponseEntity<CompanyCreation> updateCompany(@Valid @RequestBody CompanyCreation company, @PathVariable Long  companyCode) {
         CompanyCreation companyQuery = companyQueryService.updateCompany(company, companyCode);
         if(null==companyQuery)
@@ -60,6 +63,7 @@ public class CompanyCommandController {
     }
 
     @DeleteMapping(value="/{companyCode}", produces = "application/json")
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     public ResponseEntity<?> deleteCompany(@PathVariable Long  companyCode) {
         boolean isDeleted = companyQueryService.deleteCompany(companyCode);
         if(!isDeleted)
