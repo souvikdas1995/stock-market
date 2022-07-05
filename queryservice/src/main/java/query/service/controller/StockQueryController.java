@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import query.service.bean.StockQuery;
 import query.service.repository.StockQueryRepository;
@@ -28,6 +29,7 @@ public class StockQueryController {
     CompanyQueryService companyQueryService;
 
     @GetMapping(path = "/getall")
+    @PreAuthorize("hasAuthority('ROLE_USER') or hasAuthority('ROLE_ADMIN')")
     public @ResponseBody
     ResponseEntity<List<StockQuery>> getAllStocks() {
 
@@ -35,6 +37,7 @@ public class StockQueryController {
     }
 
     @GetMapping(path = "/info/{stockCode}")
+    @PreAuthorize("hasAuthority('ROLE_USER') or hasAuthority('ROLE_ADMIN')")
     public ResponseEntity<StockQuery> getSingleStockDetails(@PathVariable Long stockCode) throws Exception{
         Optional<StockQuery> singleStockbyId = stockQueryService.getSingleStockbyId(stockCode);
         if(!singleStockbyId.isPresent())
@@ -44,6 +47,7 @@ public class StockQueryController {
     }
 
     @GetMapping("/get/{companyCode}/{startDate}/{endDate}")
+    @PreAuthorize("hasAuthority('ROLE_USER') or hasAuthority('ROLE_ADMIN')")
     public ResponseEntity<List<StockQuery>> findAllStocksBetweenDates(@PathVariable(value = "companyCode") Long companyCode, @PathVariable(value = "startDate") @DateTimeFormat(pattern = "yyyy-MM-dd") Date startDate,
                                                                       @PathVariable(value = "endDate") @DateTimeFormat(pattern = "yyyy-MM-dd") Date endDate){
         return new ResponseEntity<>(stockQueryService.findAllStocksBetweenDates(companyCode, startDate, endDate),HttpStatus.OK);
