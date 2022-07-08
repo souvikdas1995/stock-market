@@ -14,7 +14,7 @@ import javax.validation.Valid;
 import java.util.Optional;
 
 @RestController
-@CrossOrigin
+
 @RequestMapping("/api/v1/company")
 public class CompanyCommandController {
     @Autowired

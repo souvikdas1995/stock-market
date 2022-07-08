@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 
 @RestController
-@CrossOrigin
 @RequestMapping("/api/v1/stock")
 public class StockCommandController {
 
