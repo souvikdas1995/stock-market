@@ -37,3 +37,43 @@ hystrix:
 ribbon:
   ReadTimeout: 60000
   connection-timeout: 3000
+---
+spring:
+  profiles: docker
+  application:
+    name: api-gateway
+server:
+  port: 8083
+zuul:
+  routes:
+    commandservice:
+      path: /command/**
+      sensitiveHeaders:
+      serviceeId: COMMANDSERVICE
+    queryservice:
+      path: /query/**
+      sensitiveHeaders:
+      serviceId: QUERYSERVICE
+    authservice:
+      path: /authenticate/**
+      sensitiveHeaders:
+      serviceId: AUTHSERVICE
+eureka:
+  client:
+    registerWithEureka: true
+    fetchRegistry: true
+    serviceUrl:
+      defaultZone: http://serviceRegistry:8761/eureka/
+  instance:
+    preferIpAddress: true
+  lease-renewal-interval-in-seconds: 30
+hystrix:
+  command:
+    default:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 122001
+ribbon:
+  ReadTimeout: 60000
+  connection-timeout: 3000

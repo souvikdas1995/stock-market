@@ -11,7 +11,7 @@ services:
     ports:
       - "3307:3306"
     restart: always
-   #service 2 : command Service
+    #service 2 : command Service
   commandService:
     image: command-service
     container_name: command-service-app
@@ -27,6 +27,7 @@ services:
     depends_on:
       - db
       - kafka
+      - apiGateway
     #service 3 : zookeeper
   zookeeper:
     image: wurstmeister/zookeeper:latest
@@ -61,6 +62,7 @@ services:
     depends_on:
       - mongo_db
       - kafka
+      - apiGateway
     restart: always
     environment:
       - SPRING_PROFILES_ACTIVE=docker
@@ -71,13 +73,48 @@ services:
     restart: always
     ports:
       - 27018:27017
-   #service 7 : frontend from dockerhub
-
-  frontend_angular:
-    image: "souvikd95/stock-market-frontend:latest"
+    #service 7 : OAuth Service
+  authService:
+    image: "auth-service"
+    container_name: auth-service-app
+    build:
+      context: .
+      dockerfile: ./authservice/Dockerfile
     ports:
-      - "4200:80"
+      - "9191:9191"
     restart: always
+    command: --spring.profiles.active=docker
+    environment:
+      SPRING_PROFILES_ACTIVE: docker
+      MYSQL_ROOT_PASSWORD: pass@word1
+      MYSQL_DATABASE: stock_market
     depends_on:
-      - commandService
-      - queryService
+      - db
+      - apiGateway
+    #service 8: api-gateway
+  apiGateway:
+    image: "api-gateway"
+    container_name: api-gateway-app
+    build:
+      context: .
+      dockerfile: ./api-gateway/Dockerfile
+    ports:
+      - "8083:8083"
+    restart: always
+    command: --spring.profiles.active=docker
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+    depends_on:
+      - serviceRegistry
+      #service 9: service-registry
+  serviceRegistry:
+    image:  "service-registry"
+    container_name: service-registry-app
+    build:
+      context: .
+      dockerfile: ./service-registry/Dockerfile
+    ports:
+      - "8761:8761"
+    restart: always
+
+

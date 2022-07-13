@@ -72,3 +72,15 @@ To run just follow the below command from the root directory of backend app:
 ![snap6](https://user-images.githubusercontent.com/32546790/174551025-e0d92207-fee9-44b3-8276-7ca5ddb5c787.PNG)
 
 
+ #service 7 : frontend from dockerhub
+
+  frontend_angular:
+    image: "souvikd95/stock-market-frontend:latest"
+    ports:
+      - "4200:80"
+    restart: always
+    depends_on:
+      - commandService
+      - queryService
+
+
