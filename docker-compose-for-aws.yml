@@ -13,11 +13,8 @@ services:
     restart: always
     #service 2 : command Service
   commandService:
-    image: command-service
+    image: <your aws account id>.dkr.ecr.us-west-1.amazonaws.com/command-service:latest
     container_name: command-service-app
-    build:
-      context: .
-      dockerfile: ./commandservice/Dockerfile
     ports:
       - "8082:8082"
     restart: always
@@ -50,11 +47,8 @@ services:
       KAFKA_CREATE_TOPICS: "stock_market:1:1"
     #service 5 : queryservice
   queryService:
-    image: query-service
+    image: <your aws account id>.dkr.ecr.us-west-1.amazonaws.com/query-service:latest
     container_name: query-service-app
-    build:
-      context: .
-      dockerfile: ./queryservice/Dockerfile
     ports:
       - "8081:8081"
     depends_on:
@@ -73,11 +67,8 @@ services:
       - 27018:27017
     #service 7 : OAuth Service
   authService:
-    image: "auth-service"
+    image: <your aws account id>.dkr.ecr.us-west-1.amazonaws.com/auth-service:latest
     container_name: auth-service-app
-    build:
-      context: .
-      dockerfile: ./authservice/Dockerfile
     ports:
       - "9191:9191"
     restart: always
@@ -91,13 +82,10 @@ services:
       - apiGateway
     #service 8: api-gateway
   apiGateway:
-    image: "api-gateway"
+    image: <your aws account id>.dkr.ecr.us-west-1.amazonaws.com/api-gateway:latest
     container_name: api-gateway-app
-    build:
-      context: .
-      dockerfile: ./api-gateway/Dockerfile
     ports:
-      - "8083:8083"
+      - "80:8083"
     restart: always
     command: --spring.profiles.active=docker
     environment:
@@ -106,11 +94,8 @@ services:
       - serviceRegistry
       #service 9: service-registry
   serviceRegistry:
-    image:  "service-registry"
+    image:  <your aws account id>.dkr.ecr.us-west-1.amazonaws.com/service-registry:latest
     container_name: service-registry-app
-    build:
-      context: .
-      dockerfile: ./service-registry/Dockerfile
     ports:
       - "8761:8761"
     restart: always
