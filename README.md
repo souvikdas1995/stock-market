@@ -44,9 +44,7 @@ Request to create user with ADMIN_ROLE:
 	"password" : "password",
 	"roles": [
             {"name": "ROLE_ADMIN"}
-
-        ]
-
+	    ]
 }
 
 ## frontend
